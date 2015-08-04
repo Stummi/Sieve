@@ -1,0 +1,41 @@
+runners+=(c c_O1 c_O2 c_O3 c_Ofast)
+
+prepare_c() {
+    gcc -std=c99 source/Sieve.c -o binary/Sieve
+}
+
+prepare_c_O1() {
+    gcc -std=c99 -O1 source/Sieve.c -o binary/Sieve1
+}
+
+prepare_c_O2() {
+    gcc -std=c99 -O2 source/Sieve.c -o binary/Sieve2
+}
+
+prepare_c_O3() {
+    gcc -std=c99 -O3 source/Sieve.c -o binary/Sieve3
+}
+
+prepare_c_Ofast() {
+    gcc -std=c99 -Ofast source/Sieve.c -o binary/SieveFast
+}
+
+run_c() {
+    binary/Sieve $1
+}
+
+run_c_O1() {
+    binary/Sieve1 $1
+}
+
+run_c_O2() {
+    binary/Sieve2 $1
+}
+
+run_c_O3() {
+    binary/Sieve3 $1
+}
+
+run_c_Ofast() {
+    binary/SieveFast $1
+}

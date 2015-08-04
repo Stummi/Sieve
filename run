@@ -1,0 +1,40 @@
+#!/bin/bash
+
+max=1000000
+step=1000
+
+declare -a runners
+
+for f in units/*; do
+    echo "Found unit: $f"
+    . "$f"
+done
+
+for r in "${runners[@]}"; do
+    echo "-- prepare: $r"
+    prepare_$r
+done
+
+for r in "${runners[@]}"; do
+    echo "-- check: $r"
+    if ! diff <(run_$r $max) <(run_c $max) >/dev/null; then
+        echo "check failed";
+        exit 1
+    fi
+done
+
+echo "Run tests..."
+TIMEFORMAT=%3R
+LANG=C
+declare -A timings
+printf "%s\t" max ${runners[@]}
+printf "\n"
+
+for ((i=step; i<=max; i+=step)); do
+    printf "%d\t" $i
+    for r in "${runners[@]}"; do
+        time=$( ( time run_$r $i 2>&1 > /dev/null ) 2>&1 )
+        printf "%.3f\t" $time
+    done
+    printf "\n"
+done

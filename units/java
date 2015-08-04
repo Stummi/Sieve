@@ -1,0 +1,10 @@
+runners+=(java)
+
+prepare_java() {
+    javac -d binary source/Sieve.java    
+}
+
+run_java() {
+    java -cp binary Sieve $1
+}
+

@@ -1,0 +1,10 @@
+runners+=(perl)
+
+prepare_perl() {
+    :;
+}
+
+run_perl() {
+    source/Sieve.pl $1
+}
+
