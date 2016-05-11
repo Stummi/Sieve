@@ -1,4 +1,8 @@
-runners+=(c c_O1 c_O2 c_O3 c_Ofast)
+runners+=(c 
+#    c_O1 
+#    c_O2 
+#    c_O3 
+    c_Ofast)
 
 prepare_c() {
     gcc -std=c99 source/Sieve.c -o binary/Sieve

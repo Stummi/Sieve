@@ -1,0 +1,18 @@
+runners+=(python pypy)
+
+prepare_pypy() {
+    :;
+}
+
+prepare_python() {
+    :;
+}
+
+run_pypy() {
+    pypy source/Sieve.py $1
+}
+
+run_python() {
+    source/Sieve.py $1
+}
+

@@ -1,0 +1,25 @@
+runners+=(node rhino jjs)
+
+prepare_jjs() {
+    :;
+}
+
+prepare_node() {
+    :;
+}
+
+prepare_rhino() {
+    :;
+}
+
+run_node() {
+    node source/Sieve.js $1
+}
+
+run_rhino() {
+    rhino source/Sieve.js $1
+}
+
+run_jjs() {
+    jjs source/Sieve.js -- $1
+}

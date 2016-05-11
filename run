@@ -1,7 +1,8 @@
 #!/bin/bash
 
 max=1000000
-step=1000
+step=10000
+iterations=1
 
 declare -a runners
 
@@ -24,17 +25,24 @@ for r in "${runners[@]}"; do
 done
 
 echo "Run tests..."
+(
 TIMEFORMAT=%3R
 LANG=C
 declare -A timings
+
 printf "%s\t" max ${runners[@]}
 printf "\n"
 
 for ((i=step; i<=max; i+=step)); do
     printf "%d\t" $i
     for r in "${runners[@]}"; do
-        time=$( ( time run_$r $i 2>&1 > /dev/null ) 2>&1 )
-        printf "%.3f\t" $time
+        sumtime=0
+        for ((it=0; it<iterations; ++it)); do
+            time=$( ( time run_$r $i 2>&1 > /dev/null ) 2>&1 )
+            sumtime=$(bc -l <<< "$sumtime + $time")
+        done
+        printf "%.3f\t" $(bc -l <<< "$sumtime / $iterations")
     done
     printf "\n"
 done
+) | tee results
