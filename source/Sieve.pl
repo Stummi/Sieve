@@ -9,7 +9,6 @@ for ( 2 .. $top ) {
     next if $primes[$_];
     print "$_\n";
     $prime = $_;
-    last unless --$max;
     {
         local $_;
         $primes[ $_ * $prime ] = 1 for 2 .. $top / $prime;
